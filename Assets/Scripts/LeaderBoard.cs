@@ -26,6 +26,11 @@ public class LeaderBoard : MonoBehaviour
         entry_TouchUp.callback.AddListener((data) => { TouchUp(); });
         eventTrigger.triggers.Add(entry_TouchUp);
 
+        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, (result) => {
+            // handle results
+            Debug.Log("handle results : " + result);
+        });
+
         /*
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
         // enables saving game progress.
@@ -46,6 +51,9 @@ public class LeaderBoard : MonoBehaviour
         PlayGamesPlatform.DebugLogEnabled = true;
         */
 
+        // Activate the Google Play Games platform
+        PlayGamesPlatform.Activate();
+
     }
 
     public void TouchDown()
@@ -64,14 +72,6 @@ public class LeaderBoard : MonoBehaviour
 
     public void RankButtonClick()
     {
-        // Activate the Google Play Games platform
-        PlayGamesPlatform.Activate();
-        /*
-        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, (result) => {
-            // handle results
-            Debug.Log("handle results : " + result);
-        });
-        */
         Social.localUser.Authenticate(AuthenticateHandler);
     }
 
